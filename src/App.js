@@ -2,25 +2,33 @@ import logo from './logo.svg';
 import './App.css';
 
 
-const ViewOne = ({onClick}) => (
+const AddDoc = ({onClick}) => (
   <div>
-    View 1 <br />
-    <button onClick={() => onClick("view2")}>Go to view 2</button>
+    <button onClick={() => onClick("addDoc")}>Add Documentation to Bot</button>
   </div>
 );
 
-const ViewTwo = ({onClick}) => (
+const ViewDoc = ({onClick}) => (
   <div>
-    View 2 <br />
-    <button onClick={() => onClick("view1")}>Go to view 1</button>
+    <button onClick={() => onClick("viewDoc")}>View Available Documentation</button>
+  </div>
+);
+
+const UserCom = ({onClick}) => (
+  <div>
+    <button onClick={() => onClick("userCom")}>Check User Communication with Bot</button>
   </div>
 );
 
 
 function App() {
   return (
-    <div className="App">
-      <button>Hello</button>
+    <div className="box">
+      <div className="buttonContainer">
+        <AddDoc></AddDoc>
+        <ViewDoc></ViewDoc>
+        <UserCom></UserCom>
+      </div>
     </div>
   );
 }
