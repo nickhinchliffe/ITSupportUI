@@ -1,8 +1,14 @@
+div.userNameDisp{
+  color:blue
+}
 html{
   background-image: url(background.png);
   background-repeat: repeat-x;
 }
-button{
-    width: 15%;
-    height: 50px;
+.container{
+  background-color:whitesmoke;
+  overflow: auto;
+}
+.userTextDisp{
+  color: black
 }
