@@ -11,8 +11,23 @@ var message;
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
 var sessionIdValue;
 
+
+function deleteSession(assistant, assistantIdValue, sessionIdValue){
+    assistant.deleteSession({
+        assistantId: assistantIdValue,
+        sessionId: sessionIdValue,
+      })
+        .then(res => {
+          console.log("Watson connection closed");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      
+}
 
 app.post('/', async function (req, res) {
     // Here's how you get the data from the front-end.
@@ -58,6 +73,11 @@ app.post('/', async function (req, res) {
               //console.log(JSON.stringify(ans.result, null, 2));
               //Send back to user
               res.send(ans.result);
+
+              if(ans.result.output.generic[0].text === "I will connect you to a human right away!"){
+                console.log("Connecting to person");
+                deleteSession(assistant, assistantIdValue, sessionIdValue)
+              }
             })
             .catch(err => {
               console.log(err);

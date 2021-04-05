@@ -17,21 +17,37 @@ class App extends React.Component {
   updateMessages = (obj) => {
     const cState = this.state.messages
     const updatedState = cState.concat(obj);
-    const toBot = obj;
+    const toServer = obj;
     this.setState({
       messages : updatedState
     })
-    axios.post("http://localhost:3001/", toBot).then(res => {
-      var msgBot = res.data.output.generic[0].text
+    axios.post("http://localhost:3001/", toServer).then(res => {
+      var serverMessage = res.data.output.generic[0].text
       const cState2 = this.state.messages
-      const botObj = {
-        user: 'ITSupportBot:',
-        text: msgBot
+      const serverObj = {
+        user: 'User:',
+        text: serverMessage
       }
-      const updatedState2 = cState2.concat(botObj);
+      const updatedState2 = cState2.concat(serverObj);
       this.setState({
         messages: updatedState2
       })
+      //check and establish p2p connection
+      if(serverMessage === "I will connect you to a human right away!"){
+        console.log("switching servers")
+        axios.post("http://localhost:3003/", this.state).then(res =>{
+          console.log(res)
+          const cState3 = this.state.messages
+          const serverObj2 = {
+            user: 'User:',
+            text: serverMessage
+        }
+          const updatedState3 = cState3.concat(serverObj2);
+          this.setState({
+            messages: updatedState3
+          })
+        })
+      }
     }).catch(e => {
       console.error(e);
     })
