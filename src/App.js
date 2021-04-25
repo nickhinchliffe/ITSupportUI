@@ -1,6 +1,10 @@
 import {style} from './App.css';
 import React from 'react';
-import axios from 'axios';
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+
+var client = 0;
+var clientOn = false; 
+var clientOpen = false;
 
 class App extends React.Component {
   constructor(props) {
@@ -18,39 +22,39 @@ class App extends React.Component {
     const cState = this.state.messages
     const updatedState = cState.concat(obj);
     const toServer = obj;
+    const toServerText = obj.text;
     this.setState({
       messages : updatedState
     })
-    axios.post("http://localhost:3001/", toServer).then(res => {
-      var serverMessage = res.data.output.generic[0].text
-      const cState2 = this.state.messages
-      const serverObj = {
-        user: 'User:',
-        text: serverMessage
-      }
-      const updatedState2 = cState2.concat(serverObj);
-      this.setState({
-        messages: updatedState2
-      })
-      //check and establish p2p connection
-      if(serverMessage === "I will connect you to a human right away!"){
-        console.log("switching servers")
-        axios.post("http://localhost:3003/", this.state).then(res =>{
-          console.log(res)
-          const cState3 = this.state.messages
-          const serverObj2 = {
-            user: 'User:',
-            text: serverMessage
-        }
-          const updatedState3 = cState3.concat(serverObj2);
-          this.setState({
-            messages: updatedState3
-          })
-        })
-      }
-    }).catch(e => {
-      console.error(e);
+
+    if(clientOn === false){
+      client = new W3CWebSocket('ws://127.0.0.1:9000');
+      console.log("Client socket created")
+      clientOn = true
+    }
+    client.onopen = () =>{
+      clientOpen = true;
+    }
+    
+    if(clientOpen === true){
+      client.send(toServerText);
+    }
+
+    client.onmessage = (message) =>{
+      console.log(message.data)
+      const dataSrv = message.data;
+      const cState3 = this.state.messages
+      const staffObj = {
+      user: 'User',
+      text: dataSrv
+    }
+  
+    const updatedState3 = cState3.concat(staffObj);
+    this.setState({
+      messages: updatedState3
     })
+
+    }
   }
   
   render() {
@@ -84,7 +88,7 @@ class UserInput extends React.Component {
   constructor(){
     super();
     this.state ={
-      user : 'Staff:',
+      user : 'IT Support Staff:',
       text : ''
     };
   }
