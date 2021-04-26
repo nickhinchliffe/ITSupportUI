@@ -11,8 +11,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       messages: [{
-        user: '',
-        text: ''
+        user: 'System',
+        text: 'Please press enter to connect to the server'
       }]
     };
 
