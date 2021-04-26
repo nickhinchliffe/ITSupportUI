@@ -1,8 +1,8 @@
-# IT Chat Support Bot
+# IT Chat Support Bot Staff UI
 
 ## Introduction
 
-The IT Chat Support Bot is a UI which interfaces with IBM Watson for technical support help. The idea is that a user will first interace with the Watson Support Bot before moving on to a IT Support Staff Agent. The customer can interact with the IT Support Staff agent through the same GUI when the user tells the Bot they want to speak with a human. From there, the customer and the IT Support Staff agent will be able to conversate.
+The IT Chat Support Bot is a UI which interfaces with IBM Watson for technical support help. The idea is that a user will first interace with the Watson Support Bot before moving on to a IT Support Staff Agent. The customer can interact with the IT Support Staff agent through the same GUI when the user tells the Bot they want to speak with a human. From there, the customer and the IT Support Staff agent will be able to conversate. This is the IT Support side.
 
 ## Functions
 List all the functions with their sub functions of your application.
@@ -27,9 +27,7 @@ List all the functions with their sub functions of your application.
 3. If you machine does not have node or npm, please download Node.js to support servers and react: https://nodejs.org/en/download/
 4. In the cloned repository, type: npm install. This will update the npm version of the package to the one currently on the local machine.
 ### Run
-1. Start the UI to Watson server, which lives in the same folder, by typing: node src/server.js
-2. Start the customer-server server, again which lives in the same folder, by typing: node src/customerToStaffServer.js
-3. Start the customer UI by typing npm start 
+1. Start this react app by using: npm start
 
 ## Demo video
 https://www.youtube.com/watch?v=ehB_B5myxyI
